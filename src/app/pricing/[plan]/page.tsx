@@ -6,8 +6,8 @@ import Link from 'next/link'
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const T = {
-  bg:      '#0a0618',
-  card:    '#130825',
+  bg:      '#060210',
+  card:    '#1e0a44',
   p400:    '#a855f7',
   p500:    '#7c3aed',
   p700:    '#5b21b6',
@@ -36,7 +36,7 @@ const PLANS = {
   starter: {
     badge: 'Starter', color: '#818cf8',
     title: 'Small Business',
-    price: '$150 – $500', deposit: '$150', depositCents: 15000,
+    price: '$150 – $500', deposit: '$150', depositCents: 15000, isVariable: false as const, minAmount: 150, maxAmount: 150,
     timeline: '1–2 weeks', pages: '1–5 pages',
     subtitle: 'Get your business online with a clean, professional presence that builds instant trust with customers.',
     bestFor: [
@@ -85,7 +85,7 @@ const PLANS = {
   standard: {
     badge: 'Standard', color: '#a855f7',
     title: 'Business Site',
-    price: '$500 – $1,500', deposit: '$500', depositCents: 50000,
+    price: '$500 – $1,500', deposit: '$500', depositCents: 50000, isVariable: true as const, minAmount: 500, maxAmount: 1500,
     timeline: '2–4 weeks', pages: '5–10 pages',
     subtitle: 'A fully equipped business website that automates client intake and saves you 5–10 hours every single week.',
     bestFor: [
@@ -137,7 +137,7 @@ const PLANS = {
   growth: {
     badge: 'Growth', color: '#c084fc',
     title: 'Growth Site',
-    price: '$1,500 – $3,000+', deposit: '$750', depositCents: 75000,
+    price: '$1,500 – $3,000+', deposit: '$750', depositCents: 75000, isVariable: true as const, minAmount: 1500, maxAmount: 3000,
     timeline: '4–8 weeks', pages: '10+ pages',
     subtitle: 'A fully automated business system — your website works 24/7 to attract, qualify, and close clients while you focus on the work.',
     bestFor: [
@@ -200,8 +200,9 @@ export default function PricingDetail() {
   const params = useParams()
   const plan = params.plan as string
   const data = PLANS[plan as PlanKey]
-  const [loading, setLoading] = useState(false)
-  const [error,   setError]   = useState('')
+  const [loading,      setLoading]      = useState(false)
+  const [error,        setError]        = useState('')
+  const [customAmount, setCustomAmount] = useState<number>(() => data?.minAmount ?? 0)
 
   if (!data) {
     return (
@@ -221,7 +222,7 @@ export default function PricingDetail() {
       const res  = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan }),
+        body: JSON.stringify({ plan, amount: data.isVariable ? customAmount : null }),
       })
       const json = await res.json()
       if (json.url) {
@@ -237,10 +238,10 @@ export default function PricingDetail() {
   }
 
   return (
-    <div style={{ background: `linear-gradient(180deg, #0e0828 0%, #0a0618 100%)`, minHeight: '100vh', color: T.text }}>
+    <div style={{ background: `linear-gradient(180deg, #190848 0%, #060210 100%)`, minHeight: '100vh', color: T.text }}>
 
       {/* ── Top nav ── */}
-      <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(10,6,24,0.92)', backdropFilter: 'blur(22px)', borderBottom: `1px solid ${T.border}`, padding: '0 clamp(16px,4vw,40px)' }}>
+      <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(6,2,16,0.94)', backdropFilter: 'blur(22px)', borderBottom: `1px solid ${T.border}`, padding: '0 clamp(16px,4vw,40px)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Link href="/" style={{ textDecoration: 'none' }}>
             <span style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-0.03em' }}>
@@ -304,9 +305,9 @@ export default function PricingDetail() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {section.items.map((item, ii) => (
                     <div key={ii}
-                      style={{ padding: '18px 22px', background: 'rgba(19,8,37,0.65)', border: `1px solid ${T.border}`, borderRadius: 14, backdropFilter: 'blur(12px)', transition: 'border-color .25s, background .25s' }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = T.borderHi; el.style.background = 'rgba(30,10,56,0.8)' }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = T.border; el.style.background = 'rgba(19,8,37,0.65)' }}>
+                      style={{ padding: '18px 22px', background: 'rgba(30,8,62,0.7)', border: `1px solid ${T.border}`, borderRadius: 14, backdropFilter: 'blur(12px)', transition: 'border-color .25s, background .25s' }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = T.borderHi; el.style.background = 'rgba(46,12,90,0.85)' }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = T.border; el.style.background = 'rgba(30,8,62,0.7)' }}>
                       <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
                         <span style={{ color: T.p400, flexShrink: 0, marginTop: 4 }}><IcCheck /></span>
                         <div>
@@ -325,7 +326,7 @@ export default function PricingDetail() {
               <h2 style={{ fontSize: 'clamp(1.15rem,2.5vw,1.5rem)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 20 }}>Frequently Asked Questions</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {data.faq.map((item, i) => (
-                  <div key={i} style={{ padding: '22px 24px', background: 'rgba(19,8,37,0.55)', border: `1px solid ${T.border}`, borderRadius: 14 }}>
+                  <div key={i} style={{ padding: '22px 24px', background: 'rgba(30,8,62,0.6)', border: `1px solid ${T.border}`, borderRadius: 14 }}>
                     <div style={{ color: T.text, fontSize: 15, fontWeight: 700, marginBottom: 10 }}>{item.q}</div>
                     <div style={{ color: T.dim, fontSize: 14, lineHeight: 1.7 }}>{item.a}</div>
                   </div>
@@ -337,7 +338,7 @@ export default function PricingDetail() {
 
           {/* Right — sticky payment card */}
           <div style={{ position: 'sticky', top: 80 }}>
-            <div style={{ padding: '32px 28px', background: 'linear-gradient(145deg, #220848, #180538)', border: `1px solid ${T.borderHi}`, borderRadius: 20, boxShadow: `0 0 60px rgba(124,58,237,0.22)` }}>
+            <div style={{ padding: '32px 28px', background: 'linear-gradient(145deg, #320d6e, #1e0950)', border: `1px solid ${T.borderHi}`, borderRadius: 20, boxShadow: `0 0 60px rgba(124,58,237,0.22)` }}>
 
               <span style={{ display: 'inline-block', padding: '4px 14px', background: `${data.color}18`, border: `1px solid ${data.color}44`, borderRadius: 100, fontSize: 11, color: data.color, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 18 }}>{data.badge}</span>
 
@@ -348,14 +349,50 @@ export default function PricingDetail() {
 
               <div style={{ height: 1, background: T.border, marginBottom: 24 }} />
 
-              <div style={{ marginBottom: 24 }}>
-                <div style={{ color: T.dim, fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: 6 }}>To get started today</div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-                  <span style={{ color: T.text, fontSize: 30, fontWeight: 900 }}>{data.deposit}</span>
-                  <span style={{ color: T.muted, fontSize: 13 }}>deposit</span>
+              {data.isVariable ? (
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                    <div style={{ color: T.dim, fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.09em' }}>Your payment</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                      <span style={{ color: T.p400, fontSize: 18, fontWeight: 700 }}>$</span>
+                      <input
+                        type="number"
+                        min={data.minAmount}
+                        max={data.maxAmount}
+                        value={customAmount}
+                        onChange={e => {
+                          const v = parseInt(e.target.value, 10)
+                          if (!isNaN(v)) setCustomAmount(Math.min(data.maxAmount, Math.max(data.minAmount, v)))
+                        }}
+                        style={{ width: 90, padding: '5px 8px', background: 'rgba(255,255,255,0.07)', border: `1px solid ${T.border}`, borderRadius: 8, color: T.text, fontSize: 20, fontWeight: 900, textAlign: 'right', outline: 'none' }}
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    min={data.minAmount}
+                    max={data.maxAmount}
+                    step={50}
+                    value={customAmount}
+                    onChange={e => setCustomAmount(Number(e.target.value))}
+                    style={{ width: '100%', accentColor: '#7c3aed', cursor: 'pointer' }}
+                  />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
+                    <span style={{ color: T.muted, fontSize: 12 }}>Min ${data.minAmount.toLocaleString()}</span>
+                    <span style={{ color: T.muted, fontSize: 12 }}>Max ${data.maxAmount.toLocaleString()}</span>
+                  </div>
+                  <p style={{ color: T.muted, fontSize: 12.5, marginTop: 10, lineHeight: 1.55 }}>Applied toward your total project cost. Remaining balance due at launch.</p>
                 </div>
-                <p style={{ color: T.muted, fontSize: 12.5, marginTop: 6, lineHeight: 1.55 }}>Credited toward your total. Remaining balance due at launch.</p>
-              </div>
+              ) : (
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ color: T.dim, fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: 6 }}>To get started today</div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                    <span style={{ color: T.text, fontSize: 30, fontWeight: 900 }}>{data.deposit}</span>
+                    <span style={{ color: T.muted, fontSize: 13 }}>flat deposit</span>
+                  </div>
+                  <p style={{ color: T.muted, fontSize: 12.5, marginTop: 6, lineHeight: 1.55 }}>Credited toward your total. Remaining balance due at launch.</p>
+                </div>
+              )}
 
               {error && (
                 <div style={{ padding: '10px 14px', background: 'rgba(255,96,96,0.1)', border: '1px solid rgba(255,96,96,0.3)', borderRadius: 8, marginBottom: 16 }}>
@@ -378,7 +415,7 @@ export default function PricingDetail() {
                 }}
                 onMouseEnter={e => { if (!loading) { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-2px)' } }}
                 onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)' }}>
-                {loading ? 'Setting up secure checkout…' : `Pay ${data.deposit} Deposit`}
+                {loading ? 'Setting up secure checkout…' : `Pay $${(data.isVariable ? customAmount : data.minAmount).toLocaleString()}`}
               </button>
 
               <a href="mailto:hello@b2labz.com"

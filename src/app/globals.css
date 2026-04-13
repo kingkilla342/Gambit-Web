@@ -37,8 +37,8 @@
   --mid-grey:        #c7c7c7;
 
   /* ── Backgrounds ── */
-  --background:      #0a0618;
-  --bg-subtle:       #130825;
+  --background:      #060210;
+  --bg-subtle:       #1e0a44;
   --bg-highlight:    #7c3aed;
 
   /* ── Foreground / text ── */
@@ -98,7 +98,7 @@
   }
   html::-webkit-scrollbar { display: none; }
   body {
-    background-color: #0a0618;
+    background-color: #060210;
     color: #ffffff;
     font-family: "Basis Grotesque Pro", var(--font-geist-sans, system-ui), sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -153,7 +153,7 @@
 /* ── Gradient border card ────────────────────────────────────── */
 .grad-border {
   position: relative;
-  background: linear-gradient(145deg, #180a38, #100528);
+  background: linear-gradient(145deg, #240c52, #180840);
   border-radius: 18px;
 }
 .grad-border::before {
@@ -172,7 +172,7 @@
 
 /* ── Glass card ──────────────────────────────────────────────── */
 .glass {
-  background: rgba(24,10,56,0.7);
+  background: rgba(36,12,82,0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(124,58,237,.22);

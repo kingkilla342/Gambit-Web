@@ -20,9 +20,9 @@ const IcClose= () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const T = {
-  bg:      '#0a0618',
-  card:    '#130825',
-  cardB:   '#0e0622',
+  bg:      '#060210',
+  card:    '#1e0a44',
+  cardB:   '#160838',
   p400:    '#a855f7',   // bright violet
   p500:    '#7c3aed',   // deep violet-purple
   p700:    '#5b21b6',   // very deep purple
@@ -57,7 +57,7 @@ function Sub({ children, center }: { children: React.ReactNode; center?: boolean
 
 function Section({ id, children, dark }: { id?: string; children: React.ReactNode; dark?: boolean }) {
   return (
-    <section id={id} style={{ padding:'clamp(64px,10vw,120px) clamp(16px,4vw,24px)', background: dark ? 'linear-gradient(180deg,#220848 0%,#180538 100%)' : 'linear-gradient(180deg,#0e0828 0%,#0a0618 100%)', borderTop:`1px solid ${T.border}` }}>
+    <section id={id} style={{ padding:'clamp(64px,10vw,120px) clamp(16px,4vw,24px)', background: dark ? 'linear-gradient(180deg,#320d6e 0%,#200950 100%)' : 'linear-gradient(180deg,#190848 0%,#060210 100%)', borderTop:`1px solid ${T.border}` }}>
       <div style={{ maxWidth:1200, margin:'0 auto' }}>{children}</div>
     </section>
   )
@@ -82,7 +82,7 @@ function Navbar() {
   ]
 
   return (
-    <nav style={{ position:'fixed', top:0, left:0, right:0, zIndex:100, transition:'all 0.35s ease', background: scrolled ? 'rgba(7,6,12,0.85)' : 'transparent', backdropFilter: scrolled ? 'blur(22px)' : 'none', borderBottom: scrolled ? `1px solid ${T.border}` : 'none' }}>
+    <nav style={{ position:'fixed', top:0, left:0, right:0, zIndex:100, transition:'all 0.35s ease', background: scrolled ? 'rgba(6,2,16,0.92)' : 'transparent', backdropFilter: scrolled ? 'blur(22px)' : 'none', borderBottom: scrolled ? `1px solid ${T.border}` : 'none' }}>
       <div style={{ maxWidth:1200, margin:'0 auto', padding:'0 28px' }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', height:70 }}>
 
@@ -112,7 +112,7 @@ function Navbar() {
         </div>
 
         {open && (
-          <div style={{ background:'rgba(7,6,12,0.97)', borderTop:`1px solid ${T.border}`, padding:'16px 0 28px' }}>
+          <div style={{ background:'rgba(6,2,16,0.98)', borderTop:`1px solid ${T.border}`, padding:'16px 0 28px' }}>
             {links.map(l => (
               <a key={l.href} href={l.href} onClick={()=>setOpen(false)}
                 style={{ display:'block', padding:'13px 0', color:T.dim, textDecoration:'none', fontSize:15, fontWeight:500, borderBottom:`1px solid ${T.border}` }}>
@@ -374,7 +374,7 @@ function PCard({ badge,color,title,price,bestFor,goal,items,value,hot=false,slug
         className={hot ? 'grad-border' : ''}
         style={{
           padding:'38px 28px', borderRadius:18, cursor:'pointer',
-          background: hot ? 'linear-gradient(145deg,#220848,#150535)' : 'rgba(24,10,56,0.55)',
+          background: hot ? 'linear-gradient(145deg,#320d6e,#1e0950)' : 'rgba(36,12,82,0.55)',
           border: hot ? 'none' : `1px solid ${T.border}`,
           position:'relative', height:'100%',
           transition:'transform .3s, box-shadow .3s',
