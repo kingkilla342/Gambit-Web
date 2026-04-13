@@ -166,9 +166,9 @@ function Hero() {
       ))}
 
       {/* ── Content ── */}
-      <div style={{ position:'relative', zIndex:10, textAlign:'center', maxWidth:880, padding:'0 28px' }} className="fade-up">
+      <div style={{ position:'relative', zIndex:10, textAlign:'center', maxWidth:820, padding:'90px 28px 0' }} className="fade-up">
 
-        <h1 style={{ fontSize:'clamp(2.6rem,6.5vw,4.6rem)', fontWeight:900, lineHeight:1.08, marginBottom:26, letterSpacing:'-0.04em', color:T.text, textShadow:'0 2px 40px rgba(0,0,0,0.6)' }}>
+        <h1 style={{ fontSize:'clamp(1.75rem,3.8vw,3rem)', fontWeight:900, lineHeight:1.12, marginBottom:24, letterSpacing:'-0.03em', color:T.text, textShadow:'0 2px 40px rgba(0,0,0,0.6)' }}>
           We Don&apos;t Just Build Websites —<br className="hidden md:block"/>
           <span className="shimmer">We Build Systems</span><br className="hidden md:block"/>
           That Bring In Customers.
