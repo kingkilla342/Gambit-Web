@@ -19,20 +19,20 @@ const IcClose= () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const T = {
-  bg:      '#000000',
-  card:    '#100037',
-  cardB:   '#070018',
-  p400:    '#8a80ff',   // light blue-purple
-  p500:    '#584dff',   // main purple
-  p700:    '#3d35c4',   // deep blue-purple
-  p900:    '#100037',   // very dark purple
+  bg:      '#07060c',
+  card:    '#110820',
+  cardB:   '#0b0518',
+  p400:    '#a855f7',   // bright violet
+  p500:    '#7c3aed',   // deep violet-purple
+  p700:    '#5b21b6',   // very deep purple
+  p900:    '#2e1065',   // near-black purple
   text:    '#ffffff',
-  dim:     '#cac5ca',
-  muted:   '#79767a',
-  border:  'rgba(88,77,255,0.2)',
-  borderHi:'rgba(88,77,255,0.5)',
-  glow:    'rgba(88,77,255,0.4)',
-  glowHi:  'rgba(138,128,255,0.65)',
+  dim:     '#c4b8dc',
+  muted:   '#6b5a8a',
+  border:  'rgba(124,58,237,0.22)',
+  borderHi:'rgba(168,85,247,0.5)',
+  glow:    'rgba(124,58,237,0.45)',
+  glowHi:  'rgba(168,85,247,0.7)',
 }
 
 // ─── Reusable atoms ───────────────────────────────────────────────────────────
@@ -283,15 +283,15 @@ function SelectedWork() {
         {works.map((w,i) => (
           <a key={i} href={w.url} target="_blank" rel="noopener noreferrer"
             style={{ textDecoration:'none', display:'flex', flexDirection:'column', alignItems:'center', gap:20, cursor:'pointer' }}
-            onMouseEnter={e=>{ const dot=e.currentTarget.querySelector('.work-dot') as HTMLDivElement; if(dot){ dot.style.transform='scale(1.1)'; dot.style.boxShadow=`0 0 70px rgba(88,77,255,0.9), 0 0 140px rgba(88,77,255,0.35)` }}}
-            onMouseLeave={e=>{ const dot=e.currentTarget.querySelector('.work-dot') as HTMLDivElement; if(dot){ dot.style.transform='scale(1)'; dot.style.boxShadow=`0 0 40px rgba(88,77,255,0.5), 0 0 80px rgba(88,77,255,0.18)` }}}>
+            onMouseEnter={e=>{ const dot=e.currentTarget.querySelector('.work-dot') as HTMLDivElement; if(dot){ dot.style.transform='scale(1.1)'; dot.style.boxShadow=`0 0 80px rgba(168,85,247,0.9), 0 0 150px rgba(124,58,237,0.4)` }}}
+            onMouseLeave={e=>{ const dot=e.currentTarget.querySelector('.work-dot') as HTMLDivElement; if(dot){ dot.style.transform='scale(1)'; dot.style.boxShadow=`0 0 40px rgba(124,58,237,0.55), 0 0 80px rgba(91,33,182,0.2)` }}}>
 
             {/* The glowing portal dot */}
             <div className="work-dot" style={{
               width:140, height:140, borderRadius:'50%',
-              background:`radial-gradient(circle at 38% 32%, #8a80ff, #584dff 55%, #100037)`,
-              border:`1.5px solid rgba(138,128,255,0.5)`,
-              boxShadow:`0 0 40px rgba(88,77,255,0.5), 0 0 80px rgba(88,77,255,0.18)`,
+              background:`radial-gradient(circle at 38% 32%, #c084fc, #7c3aed 50%, #2e1065)`,
+              border:`1.5px solid rgba(168,85,247,0.5)`,
+              boxShadow:`0 0 40px rgba(124,58,237,0.55), 0 0 80px rgba(91,33,182,0.2)`,
               display:'flex', alignItems:'center', justifyContent:'center',
               animation:`dotPulse ${2.2 + i * 0.5}s ease-in-out infinite`,
               transition:'transform .35s ease, box-shadow .35s ease',
