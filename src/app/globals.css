@@ -30,52 +30,99 @@
 }
 
 :root {
-  /* ── Matte black + deep dark purple (sky.jpg accurate) ── */
-  --background:         #07060c;   /* near-matte black with violet tint */
-  --foreground:         #ede8ff;
-  --card:               #100820;   /* deep dark purple-black            */
-  --card-foreground:    #ede8ff;
-  --popover:            #100820;
-  --popover-foreground: #ede8ff;
-  --primary:            #7c3aed;   /* rich deep purple                  */
+  /* ── Design system ── */
+  --purple:          #584dff;
+  --dark-purple:     #100037;
+  --cool-grey:       #edf1f5;
+  --mid-grey:        #c7c7c7;
+
+  /* ── Backgrounds ── */
+  --background:      #000000;
+  --bg-subtle:       #171717;
+  --bg-highlight:    #584dff;
+
+  /* ── Foreground / text ── */
+  --foreground:      #ffffff;
+  --text-bold:       #ffffff;
+  --text-regular:    #cac5ca;
+  --text-subtle:     #79767a;
+  --text-error:      #ff6060;
+
+  /* ── Borders ── */
+  --border-bold:      #ffffff;
+  --border-highlight: #584dff;
+  --border-subtle:    #313033;
+  --border-error:     #ff6060;
+
+  /* ── Cards / surfaces ── */
+  --card:             #100037;
+  --card-foreground:  #ffffff;
+  --popover:          #100037;
+  --popover-foreground: #ffffff;
+
+  /* ── Buttons ── */
+  --button-bg:        hsla(0,0%,73%,.2);
+  --button-padding:   1.6rem;
+  --button-height:    2.4rem;
+  --button-height-md: 3.2rem;
+  --button-height-lg: 3.6rem;
+
+  /* ── Shadcn ── */
+  --primary:          #584dff;
   --primary-foreground: #ffffff;
-  --secondary:          #1c0e38;
-  --secondary-foreground: #ede8ff;
-  --muted:              #120d24;
-  --muted-foreground:   #8b6db5;
-  --accent:             #5b21b6;
-  --accent-foreground:  #ede8ff;
-  --destructive:        oklch(0.577 0.245 27.325);
-  --border:             rgba(124,58,237,0.2);
-  --input:              rgba(124,58,237,0.12);
-  --ring:               #7c3aed;
-  --radius:             0.75rem;
+  --secondary:        #100037;
+  --secondary-foreground: #ffffff;
+  --muted:            #171717;
+  --muted-foreground: #79767a;
+  --accent:           #3d35c4;
+  --accent-foreground: #ffffff;
+  --destructive:      oklch(0.577 0.245 27.325);
+  --border:           rgba(88,77,255,0.2);
+  --input:            rgba(88,77,255,0.12);
+  --ring:             #584dff;
+  --radius:           0.8rem;
+
+  /* ── Layout ── */
+  --gutter:           2.4rem;
+  --gutter-sm:        1.6rem;
+  --gutter-xs:        0.8rem;
+  --border-radius:    0.8rem;
+  --border-radius-lg: 1.6rem;
 }
 
 @layer base {
   * { @apply border-border; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar { display: none; }
   body {
-    background-color: #07060c;
-    color: #ede8ff;
-    font-family: var(--font-geist-sans, system-ui, sans-serif);
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Basis Grotesque Pro", var(--font-geist-sans, system-ui), sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
   }
 }
 
-/* ── Scrollbar ──────────────────────────────────────────── */
-::-webkit-scrollbar       { width: 5px; }
-::-webkit-scrollbar-track { background: #07060c; }
-::-webkit-scrollbar-thumb { background: #3b0e72; border-radius: 4px; }
+/* ── Scrollbar (hidden globally, thin on specific containers) ── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #584dff; border-radius: 4px; }
 
-/* ── Purple shimmer text ────────────────────────────────── */
+/* ── Purple shimmer text ─────────────────────────────────────── */
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
 }
 .shimmer {
   background: linear-gradient(90deg,
-    #7c3aed 0%, #a855f7 30%, #e0d0ff 50%, #a855f7 70%, #7c3aed 100%
+    #584dff 0%, #8a80ff 30%, #d4d0ff 50%, #8a80ff 70%, #584dff 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -84,23 +131,29 @@
   animation: shimmer 5s linear infinite;
 }
 
-/* ── Fade up ────────────────────────────────────────────── */
+/* ── Fade up ─────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0);    }
 }
 .fade-up { animation: fadeUp 0.8s ease-out forwards; }
 
-/* ── Star pulse ─────────────────────────────────────────── */
+/* ── Star / dot pulse ────────────────────────────────────────── */
 @keyframes starPulse {
-  0%,100% { opacity:.5; transform:scale(1);    box-shadow: 0 0 4px 2px rgba(168,85,247,.5); }
-  50%     { opacity:1;  transform:scale(1.35); box-shadow: 0 0 10px 4px rgba(168,85,247,.9); }
+  0%,100% { opacity:.5; transform:scale(1);    box-shadow: 0 0 12px 4px rgba(88,77,255,.5); }
+  50%     { opacity:1;  transform:scale(1.08); box-shadow: 0 0 32px 8px rgba(88,77,255,.9); }
 }
 
-/* ── Gradient border card ───────────────────────────────── */
+/* ── Dot orbit pulse ─────────────────────────────────────────── */
+@keyframes dotPulse {
+  0%,100% { box-shadow: 0 0 40px rgba(88,77,255,0.5), 0 0 80px rgba(88,77,255,0.15); }
+  50%     { box-shadow: 0 0 60px rgba(88,77,255,0.8), 0 0 120px rgba(88,77,255,0.3); }
+}
+
+/* ── Gradient border card ────────────────────────────────────── */
 .grad-border {
   position: relative;
-  background: linear-gradient(145deg, #100820, #0d0619);
+  background: linear-gradient(145deg, #100037, #070018);
   border-radius: 18px;
 }
 .grad-border::before {
@@ -109,7 +162,7 @@
   inset: 0;
   border-radius: 18px;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(124,58,237,.5), rgba(91,33,182,.15), rgba(124,58,237,.4));
+  background: linear-gradient(135deg, rgba(88,77,255,.55), rgba(61,53,196,.15), rgba(88,77,255,.45));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -117,39 +170,66 @@
   pointer-events: none;
 }
 
-/* ── Glass card ─────────────────────────────────────────── */
+/* ── Glass card ──────────────────────────────────────────────── */
 .glass {
-  background: rgba(16,8,32,0.65);
+  background: rgba(16,0,55,0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(124,58,237,.22);
+  border: 1px solid rgba(88,77,255,.22);
   border-radius: 18px;
 }
 
-/* ── Glow button ────────────────────────────────────────── */
+/* ── Glow button ─────────────────────────────────────────────── */
 .btn-glow {
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  background: linear-gradient(135deg, #584dff, #8a80ff);
   color: #fff;
   border-radius: 10px;
   font-weight: 700;
   letter-spacing: .04em;
   transition: transform .2s, box-shadow .2s;
-  box-shadow: 0 0 20px rgba(124,58,237,.45), inset 0 1px 0 rgba(255,255,255,.12);
+  box-shadow: 0 0 20px rgba(88,77,255,.45), inset 0 1px 0 rgba(255,255,255,.12);
 }
 .btn-glow:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 36px rgba(168,85,247,.65), inset 0 1px 0 rgba(255,255,255,.15);
+  box-shadow: 0 0 36px rgba(88,77,255,.75), inset 0 1px 0 rgba(255,255,255,.18);
 }
+
+/* ── Outline button ──────────────────────────────────────────── */
 .btn-outline {
   background: transparent;
-  color: #ede8ff;
-  border: 1px solid rgba(237,232,255,.22);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.2);
   border-radius: 10px;
   font-weight: 600;
   letter-spacing: .04em;
   transition: border-color .2s, background .2s;
 }
 .btn-outline:hover {
-  border-color: #a855f7;
-  background: rgba(124,58,237,.1);
+  border-color: #584dff;
+  background: rgba(88,77,255,.1);
+}
+
+/* ── Responsive grid helpers ─────────────────────────────────── */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .two-col-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+.four-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 520px) {
+  .four-col-grid {
+    grid-template-columns: 1fr;
+  }
 }

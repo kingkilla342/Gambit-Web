@@ -19,20 +19,20 @@ const IcClose= () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const T = {
-  bg:      '#07060c',
-  card:    '#100820',
-  cardB:   '#0d0619',
-  p400:    '#a855f7',   // bright purple
-  p500:    '#7c3aed',   // rich purple
-  p700:    '#5b21b6',   // deep purple
-  p900:    '#2e1065',   // very dark purple
-  text:    '#ede8ff',
-  dim:     '#b09ad8',
-  muted:   '#6b5a8a',
-  border:  'rgba(124,58,237,0.22)',
-  borderHi:'rgba(168,85,247,0.55)',
-  glow:    'rgba(124,58,237,0.4)',
-  glowHi:  'rgba(168,85,247,0.65)',
+  bg:      '#000000',
+  card:    '#100037',
+  cardB:   '#070018',
+  p400:    '#8a80ff',   // light blue-purple
+  p500:    '#584dff',   // main purple
+  p700:    '#3d35c4',   // deep blue-purple
+  p900:    '#100037',   // very dark purple
+  text:    '#ffffff',
+  dim:     '#cac5ca',
+  muted:   '#79767a',
+  border:  'rgba(88,77,255,0.2)',
+  borderHi:'rgba(88,77,255,0.5)',
+  glow:    'rgba(88,77,255,0.4)',
+  glowHi:  'rgba(138,128,255,0.65)',
 }
 
 // ─── Reusable atoms ───────────────────────────────────────────────────────────
@@ -56,7 +56,7 @@ function Sub({ children, center }: { children: React.ReactNode; center?: boolean
 
 function Section({ id, children, dark }: { id?: string; children: React.ReactNode; dark?: boolean }) {
   return (
-    <section id={id} style={{ padding:'clamp(72px,10vw,120px) 24px', background: dark ? 'linear-gradient(180deg,#0d0619 0%,#100820 100%)' : T.bg, borderTop:`1px solid ${T.border}` }}>
+    <section id={id} style={{ padding:'clamp(64px,10vw,120px) clamp(16px,4vw,24px)', background: dark ? 'linear-gradient(180deg,#0a0020 0%,#100037 100%)' : T.bg, borderTop:`1px solid ${T.border}` }}>
       <div style={{ maxWidth:1200, margin:'0 auto' }}>{children}</div>
     </section>
   )
@@ -168,12 +168,6 @@ function Hero() {
       {/* ── Content ── */}
       <div style={{ position:'relative', zIndex:10, textAlign:'center', maxWidth:880, padding:'0 28px' }} className="fade-up">
 
-        {/* eyebrow */}
-        <div style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'6px 20px', borderRadius:100, marginBottom:28, border:`1px solid ${T.borderHi}`, background:'rgba(124,58,237,0.12)', boxShadow:`0 0 28px rgba(124,58,237,0.18)` }}>
-          <span style={{ width:6, height:6, borderRadius:'50%', background:T.p400, display:'inline-block', boxShadow:`0 0 10px ${T.p400}` }}/>
-          <span style={{ color:T.p400, fontSize:12, fontWeight:700, letterSpacing:'0.12em', textTransform:'uppercase' }}>Smart Websites. Real Results.</span>
-        </div>
-
         <h1 style={{ fontSize:'clamp(2.6rem,6.5vw,4.6rem)', fontWeight:900, lineHeight:1.08, marginBottom:26, letterSpacing:'-0.04em', color:T.text, textShadow:'0 2px 40px rgba(0,0,0,0.6)' }}>
           We Don&apos;t Just Build Websites —<br className="hidden md:block"/>
           <span className="shimmer">We Build Systems</span><br className="hidden md:block"/>
@@ -203,44 +197,114 @@ function Hero() {
   )
 }
 
-// ─── How It Works ─────────────────────────────────────────────────────────────
+// ─── How It Works — The Architect ────────────────────────────────────────────
 function HowItWorks() {
-  const steps = [
-    { icon:<IcBrain/>, accent:'#c084fc', label:'Claude AI',  role:'The Intern',
-      desc:'Handles coding, debugging, and content writing instantly. Fixes broken layouts, writes copy, and keeps development moving so nothing delays your launch.' },
-    { icon:<IcZap/>,   accent:T.p400,   label:'Lovable',    role:'The Assembly Line',
-      desc:'Instantly scaffolds 80% of the website — layout, responsiveness, all sections. Dramatically faster development means lower costs without cutting corners on quality.' },
-    { icon:<IcHat/>,   accent:'#818cf8', label:'My Role',    role:'The Architect & Client Manager',
-      desc:'I design the strategy: colors, layout, features — and guide you through every step. You run your business; I own the technical side and communication.' },
+  const capabilities = [
+    { n:'01', label:'Strategy & Planning',      desc:'Define your goals, map user journeys, and pick the right stack before a single line of code is written.' },
+    { n:'02', label:'UX & Visual Design',        desc:'Typography, color, spacing — every detail engineered to reflect your brand and convert visitors into clients.' },
+    { n:'03', label:'Build & AI Orchestration',  desc:'I direct AI tools and custom code to deliver production-quality results at a fraction of traditional timelines.' },
+    { n:'04', label:'Launch & Communication',    desc:'Clear milestones, zero jargon, and post-launch support — you always know exactly where your project stands.' },
+  ]
+
+  const deliverables = [
+    'Custom strategy roadmap before build starts',
+    'Mobile-first — flawless on every screen size',
+    'SEO foundations built into every page',
+    'Performance-optimized for fast load times',
+    'Secure data handling from day one',
+    'AI-powered automations to save you 5–10 hrs/week',
+    'Post-launch support & maintenance options',
   ]
 
   return (
     <Section id="how-it-works" dark>
-      <div style={{ textAlign:'center', marginBottom:60 }}>
-        <Pill>The System</Pill>
-        <H2>How My System Works</H2>
-        <Sub center>Three specialized layers working together to deliver a website that actually performs — faster, smarter, and more strategically than any traditional agency.</Sub>
+      <div className="two-col-grid">
+
+        {/* Left — description + deliverables */}
+        <div>
+          <Pill>How It Works</Pill>
+          <H2>One Architect.<br/>Full Ownership.</H2>
+          <p style={{ color:T.dim, lineHeight:1.78, marginBottom:36, fontSize:'clamp(.95rem,2vw,1.08rem)' }}>
+            I am the single point of contact for every project. No handoffs, no miscommunication —
+            I own strategy, design, development, and client management end-to-end so your website
+            launches faster and performs better.
+          </p>
+
+          <ul style={{ listStyle:'none', padding:0, margin:'0 0 40px', display:'flex', flexDirection:'column', gap:12 }}>
+            {deliverables.map((d,i) => (
+              <li key={i} style={{ display:'flex', gap:12, alignItems:'flex-start' }}>
+                <span style={{ color:T.p400, flexShrink:0, marginTop:3 }}><IcCheck/></span>
+                <span style={{ color:T.dim, fontSize:14, lineHeight:1.6 }}>{d}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a href="#contact" className="btn-glow" style={{ display:'inline-block', padding:'13px 34px', fontSize:14, textDecoration:'none' }}>
+            Work With Me
+          </a>
+        </div>
+
+        {/* Right — 4 capability cards */}
+        <div className="four-col-grid">
+          {capabilities.map((c,i) => (
+            <div key={i} className="glass"
+              style={{ padding:'26px 22px', transition:'border-color .3s, transform .3s' }}
+              onMouseEnter={e=>{ const el=e.currentTarget as HTMLDivElement; el.style.borderColor=T.borderHi; el.style.transform='translateY(-3px)' }}
+              onMouseLeave={e=>{ const el=e.currentTarget as HTMLDivElement; el.style.borderColor='rgba(88,77,255,.22)'; el.style.transform='translateY(0)' }}>
+              <div style={{ fontSize:11, color:T.p400, fontWeight:800, letterSpacing:'0.12em', marginBottom:12, fontVariantNumeric:'tabular-nums' }}>{c.n}</div>
+              <h3 style={{ color:T.text, fontSize:13.5, fontWeight:700, marginBottom:9, lineHeight:1.3 }}>{c.label}</h3>
+              <p style={{ color:T.muted, fontSize:13, lineHeight:1.65 }}>{c.desc}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </Section>
+  )
+}
+
+// ─── Selected Work ────────────────────────────────────────────────────────────
+function SelectedWork() {
+  const works = [
+    { letter:'O', label:'Optic Specs',    type:'E-Commerce',      url:'https://optic-specs.vercel.app/',    delay:0   },
+    { letter:'B', label:'B2Labz Studio',  type:'Creative Studio', url:'https://b2labzstudio.vercel.app/',  delay:0.4 },
+    { letter:'A', label:'Access MKT',     type:'Marketing',       url:'https://access-mkt.vercel.app/',    delay:0.8 },
+  ]
+
+  return (
+    <Section id="work">
+      <div style={{ textAlign:'center', marginBottom:64 }}>
+        <Pill>Selected Work</Pill>
+        <H2>Live Sites We&apos;ve Built</H2>
+        <Sub center>Click any dot to explore a live project built with this exact system.</Sub>
       </div>
 
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(290px,1fr))', gap:24 }}>
-        {steps.map((s,i) => (
-          <div key={i} className="grad-border"
-            style={{ padding:'40px 32px', transition:'transform .3s, box-shadow .3s' }}
-            onMouseEnter={e=>{ const el=e.currentTarget as HTMLDivElement; el.style.transform='translateY(-6px)'; el.style.boxShadow=`0 20px 60px rgba(124,58,237,0.2)` }}
-            onMouseLeave={e=>{ const el=e.currentTarget as HTMLDivElement; el.style.transform='translateY(0)'; el.style.boxShadow='none' }}>
+      <div style={{ display:'flex', gap:'clamp(32px,6vw,72px)', justifyContent:'center', flexWrap:'wrap', alignItems:'flex-start' }}>
+        {works.map((w,i) => (
+          <a key={i} href={w.url} target="_blank" rel="noopener noreferrer"
+            style={{ textDecoration:'none', display:'flex', flexDirection:'column', alignItems:'center', gap:20, cursor:'pointer' }}
+            onMouseEnter={e=>{ const dot=e.currentTarget.querySelector('.work-dot') as HTMLDivElement; if(dot){ dot.style.transform='scale(1.1)'; dot.style.boxShadow=`0 0 70px rgba(88,77,255,0.9), 0 0 140px rgba(88,77,255,0.35)` }}}
+            onMouseLeave={e=>{ const dot=e.currentTarget.querySelector('.work-dot') as HTMLDivElement; if(dot){ dot.style.transform='scale(1)'; dot.style.boxShadow=`0 0 40px rgba(88,77,255,0.5), 0 0 80px rgba(88,77,255,0.18)` }}}>
 
-            {/* icon container */}
-            <div style={{ width:58, height:58, borderRadius:16, background:`linear-gradient(135deg,rgba(124,58,237,0.2),rgba(91,33,182,0.08))`, border:`1px solid rgba(124,58,237,0.3)`, display:'flex', alignItems:'center', justifyContent:'center', marginBottom:24, color:s.accent, boxShadow:`0 0 20px rgba(124,58,237,0.18)` }}>
-              {s.icon}
+            {/* The glowing portal dot */}
+            <div className="work-dot" style={{
+              width:140, height:140, borderRadius:'50%',
+              background:`radial-gradient(circle at 38% 32%, #8a80ff, #584dff 55%, #100037)`,
+              border:`1.5px solid rgba(138,128,255,0.5)`,
+              boxShadow:`0 0 40px rgba(88,77,255,0.5), 0 0 80px rgba(88,77,255,0.18)`,
+              display:'flex', alignItems:'center', justifyContent:'center',
+              animation:`dotPulse ${2.2 + i * 0.5}s ease-in-out infinite`,
+              transition:'transform .35s ease, box-shadow .35s ease',
+            }}>
+              <span style={{ color:'rgba(255,255,255,0.95)', fontSize:42, fontWeight:900, letterSpacing:'-0.03em', textShadow:'0 2px 16px rgba(0,0,0,0.4)' }}>{w.letter}</span>
             </div>
 
-            {/* step number */}
-            <div style={{ fontSize:11, color:s.accent, fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:6 }}>
-              0{i+1} — {s.label}
+            {/* Label */}
+            <div style={{ textAlign:'center' }}>
+              <div style={{ color:T.text, fontWeight:700, fontSize:15, letterSpacing:'-0.01em', marginBottom:4 }}>{w.label}</div>
+              <div style={{ color:T.muted, fontSize:11, fontWeight:600, textTransform:'uppercase', letterSpacing:'0.1em' }}>{w.type}</div>
             </div>
-            <h3 style={{ color:T.text, fontSize:18, fontWeight:700, marginBottom:12, letterSpacing:'-0.01em' }}>{s.role}</h3>
-            <p style={{ color:T.dim, fontSize:14.5, lineHeight:1.75 }}>{s.desc}</p>
-          </div>
+          </a>
         ))}
       </div>
     </Section>
@@ -491,6 +555,7 @@ export default function Home() {
       <Hero/>
       <HowItWorks/>
       <WhatWeDo/>
+      <SelectedWork/>
       <Pricing/>
       <Security/>
       <CTA/>
