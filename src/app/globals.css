@@ -37,8 +37,8 @@
   --mid-grey:        #c7c7c7;
 
   /* ── Backgrounds ── */
-  --background:      #07060c;
-  --bg-subtle:       #110820;
+  --background:      #0a0618;
+  --bg-subtle:       #130825;
   --bg-highlight:    #7c3aed;
 
   /* ── Foreground / text ── */
@@ -55,9 +55,9 @@
   --border-error:     #ff6060;
 
   /* ── Cards / surfaces ── */
-  --card:             #110820;
+  --card:             #130825;
   --card-foreground:  #ffffff;
-  --popover:          #110820;
+  --popover:          #130825;
   --popover-foreground: #ffffff;
 
   /* ── Buttons ── */
@@ -72,7 +72,7 @@
   --primary-foreground: #ffffff;
   --secondary:        #2e1065;
   --secondary-foreground: #ffffff;
-  --muted:            #110820;
+  --muted:            #130825;
   --muted-foreground: #6b5a8a;
   --accent:           #5b21b6;
   --accent-foreground: #ffffff;
@@ -98,7 +98,7 @@
   }
   html::-webkit-scrollbar { display: none; }
   body {
-    background-color: #000000;
+    background-color: #0a0618;
     color: #ffffff;
     font-family: "Basis Grotesque Pro", var(--font-geist-sans, system-ui), sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -153,7 +153,7 @@
 /* ── Gradient border card ────────────────────────────────────── */
 .grad-border {
   position: relative;
-  background: linear-gradient(145deg, #110820, #0b0518);
+  background: linear-gradient(145deg, #180a38, #100528);
   border-radius: 18px;
 }
 .grad-border::before {
@@ -172,7 +172,7 @@
 
 /* ── Glass card ──────────────────────────────────────────────── */
 .glass {
-  background: rgba(17,8,32,0.7);
+  background: rgba(24,10,56,0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(124,58,237,.22);
@@ -230,6 +230,19 @@
 }
 @media (max-width: 520px) {
   .four-col-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Pricing detail layout ───────────────────────────────────── */
+.pricing-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .pricing-layout {
     grid-template-columns: 1fr;
   }
 }

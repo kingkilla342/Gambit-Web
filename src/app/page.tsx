@@ -2,6 +2,7 @@
 
 import { Waves } from '@/components/ui/wave-background'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
 const IcBrain = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
@@ -19,9 +20,9 @@ const IcClose= () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const T = {
-  bg:      '#07060c',
-  card:    '#110820',
-  cardB:   '#0b0518',
+  bg:      '#0a0618',
+  card:    '#130825',
+  cardB:   '#0e0622',
   p400:    '#a855f7',   // bright violet
   p500:    '#7c3aed',   // deep violet-purple
   p700:    '#5b21b6',   // very deep purple
@@ -56,7 +57,7 @@ function Sub({ children, center }: { children: React.ReactNode; center?: boolean
 
 function Section({ id, children, dark }: { id?: string; children: React.ReactNode; dark?: boolean }) {
   return (
-    <section id={id} style={{ padding:'clamp(64px,10vw,120px) clamp(16px,4vw,24px)', background: dark ? 'linear-gradient(180deg,#0a0020 0%,#100037 100%)' : T.bg, borderTop:`1px solid ${T.border}` }}>
+    <section id={id} style={{ padding:'clamp(64px,10vw,120px) clamp(16px,4vw,24px)', background: dark ? 'linear-gradient(180deg,#220848 0%,#180538 100%)' : 'linear-gradient(180deg,#0e0828 0%,#0a0618 100%)', borderTop:`1px solid ${T.border}` }}>
       <div style={{ maxWidth:1200, margin:'0 auto' }}>{children}</div>
     </section>
   )
@@ -364,64 +365,66 @@ function WhatWeDo() {
 }
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
-type PC = { badge:string; color:string; title:string; price:string; bestFor:string; goal:string; items:string[]; value?:string; hot?:boolean }
+type PC = { badge:string; color:string; title:string; price:string; bestFor:string; goal:string; items:string[]; value?:string; hot?:boolean; slug:string }
 
-function PCard({ badge,color,title,price,bestFor,goal,items,value,hot=false }:PC) {
+function PCard({ badge,color,title,price,bestFor,goal,items,value,hot=false,slug }:PC) {
   return (
-    <div
-      className={hot ? 'grad-border' : ''}
-      style={{
-        padding:'38px 28px', borderRadius:18,
-        background: hot ? 'linear-gradient(145deg,#140a28,#0d0619)' : 'rgba(16,8,32,0.5)',
-        border: hot ? 'none' : `1px solid ${T.border}`,
-        position:'relative',
-        transition:'transform .3s, box-shadow .3s',
-        boxShadow: hot ? `0 0 50px rgba(124,58,237,0.22)` : 'none',
-      }}
-      onMouseEnter={e=>{ const el=e.currentTarget as HTMLDivElement; el.style.transform='translateY(-7px)'; el.style.boxShadow=`0 24px 60px rgba(124,58,237,0.28)` }}
-      onMouseLeave={e=>{ const el=e.currentTarget as HTMLDivElement; el.style.transform='translateY(0)'; el.style.boxShadow= hot ? `0 0 50px rgba(124,58,237,0.22)` : 'none' }}>
+    <Link href={`/pricing/${slug}`} style={{ textDecoration:'none', display:'block' }}>
+      <div
+        className={hot ? 'grad-border' : ''}
+        style={{
+          padding:'38px 28px', borderRadius:18, cursor:'pointer',
+          background: hot ? 'linear-gradient(145deg,#220848,#150535)' : 'rgba(24,10,56,0.55)',
+          border: hot ? 'none' : `1px solid ${T.border}`,
+          position:'relative', height:'100%',
+          transition:'transform .3s, box-shadow .3s',
+          boxShadow: hot ? `0 0 50px rgba(124,58,237,0.28)` : 'none',
+        }}
+        onMouseEnter={e=>{ const el=e.currentTarget as HTMLDivElement; el.style.transform='translateY(-7px)'; el.style.boxShadow=`0 24px 60px rgba(124,58,237,0.35)` }}
+        onMouseLeave={e=>{ const el=e.currentTarget as HTMLDivElement; el.style.transform='translateY(0)'; el.style.boxShadow= hot ? `0 0 50px rgba(124,58,237,0.28)` : 'none' }}>
 
-      {hot && (
-        <div style={{ position:'absolute', top:-14, left:'50%', transform:'translateX(-50%)', padding:'4px 22px', background:`linear-gradient(135deg,${T.p500},${T.p400})`, borderRadius:100, fontSize:11, fontWeight:700, color:'#fff', letterSpacing:'0.09em', textTransform:'uppercase', whiteSpace:'nowrap', boxShadow:`0 0 18px ${T.glow}` }}>
-          Most Popular
+        {hot && (
+          <div style={{ position:'absolute', top:-14, left:'50%', transform:'translateX(-50%)', padding:'4px 22px', background:`linear-gradient(135deg,${T.p500},${T.p400})`, borderRadius:100, fontSize:11, fontWeight:700, color:'#fff', letterSpacing:'0.09em', textTransform:'uppercase', whiteSpace:'nowrap', boxShadow:`0 0 18px ${T.glow}` }}>
+            Most Popular
+          </div>
+        )}
+
+        <span style={{ display:'inline-block', padding:'4px 14px', background:`${color}18`, border:`1px solid ${color}44`, borderRadius:100, fontSize:11, color, fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase', marginBottom:20 }}>{badge}</span>
+
+        <h3 style={{ color:T.text, fontSize:21, fontWeight:800, marginBottom:6, letterSpacing:'-0.02em' }}>{title}</h3>
+        <div style={{ marginBottom:12 }}>
+          <span style={{ color:T.p400, fontSize:32, fontWeight:900, letterSpacing:'-0.04em' }}>{price}</span>
         </div>
-      )}
+        <p style={{ color:T.muted, fontSize:13, marginBottom:22, lineHeight:1.6 }}>
+          <span style={{ color:T.dim, fontWeight:600 }}>Best for:</span> {bestFor}
+        </p>
 
-      <span style={{ display:'inline-block', padding:'4px 14px', background:`${color}18`, border:`1px solid ${color}44`, borderRadius:100, fontSize:11, color, fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase', marginBottom:20 }}>{badge}</span>
+        <div style={{ height:1, background:T.border, marginBottom:20 }}/>
 
-      <h3 style={{ color:T.text, fontSize:21, fontWeight:800, marginBottom:6, letterSpacing:'-0.02em' }}>{title}</h3>
-      <div style={{ marginBottom:12 }}>
-        <span style={{ color:T.p400, fontSize:32, fontWeight:900, letterSpacing:'-0.04em' }}>{price}</span>
+        <ul style={{ listStyle:'none', padding:0, margin:'0 0 20px', display:'flex', flexDirection:'column', gap:11 }}>
+          {items.map((item,i)=>(
+            <li key={i} style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
+              <span style={{ color:T.p400, flexShrink:0, marginTop:2 }}><IcCheck/></span>
+              <span style={{ color:T.dim, fontSize:13.5, lineHeight:1.5 }}>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        {(goal||value) && (
+          <div style={{ padding:'12px 14px', background:'rgba(124,58,237,0.1)', border:`1px solid rgba(124,58,237,0.22)`, borderRadius:10, marginBottom:24 }}>
+            <p style={{ color:'#c084fc', fontSize:13, lineHeight:1.65 }}>
+              <span style={{ fontWeight:700 }}>Goal: </span>{goal}
+              {value && <><br/><span style={{ fontWeight:700 }}>Value: </span>{value}</>}
+            </p>
+          </div>
+        )}
+
+        <div className={hot ? 'btn-glow' : 'btn-outline'}
+          style={{ display:'block', textAlign:'center', padding:'13px 24px', fontSize:14 }}>
+          View Full Details →
+        </div>
       </div>
-      <p style={{ color:T.muted, fontSize:13, marginBottom:22, lineHeight:1.6 }}>
-        <span style={{ color:T.dim, fontWeight:600 }}>Best for:</span> {bestFor}
-      </p>
-
-      <div style={{ height:1, background:T.border, marginBottom:20 }}/>
-
-      <ul style={{ listStyle:'none', padding:0, margin:'0 0 20px', display:'flex', flexDirection:'column', gap:11 }}>
-        {items.map((item,i)=>(
-          <li key={i} style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
-            <span style={{ color:T.p400, flexShrink:0, marginTop:2 }}><IcCheck/></span>
-            <span style={{ color:T.dim, fontSize:13.5, lineHeight:1.5 }}>{item}</span>
-          </li>
-        ))}
-      </ul>
-
-      {(goal||value) && (
-        <div style={{ padding:'12px 14px', background:'rgba(124,58,237,0.08)', border:`1px solid rgba(124,58,237,0.18)`, borderRadius:10, marginBottom:24 }}>
-          <p style={{ color:'#c084fc', fontSize:13, lineHeight:1.65 }}>
-            <span style={{ fontWeight:700 }}>Goal: </span>{goal}
-            {value && <><br/><span style={{ fontWeight:700 }}>Value: </span>{value}</>}
-          </p>
-        </div>
-      )}
-
-      <a href="#contact" className={hot ? 'btn-glow' : 'btn-outline'}
-        style={{ display:'block', textAlign:'center', padding:'13px 24px', fontSize:14, textDecoration:'none' }}>
-        Book Strategy Call
-      </a>
-    </div>
+    </Link>
   )
 }
 
@@ -438,15 +441,18 @@ function Pricing() {
         <PCard badge="Starter" color="#818cf8" title="Small Business" price="$150 – $500"
           bestFor="New or local businesses that need an online presence."
           goal="Get your name out there and start building trust online."
+          slug="starter"
           items={['1–5 pages (Home, About, Services, Contact)','Clean, responsive design','Google Maps integration','Basic online visibility setup']}/>
         <PCard badge="Standard" color={T.p400} title="Business Site" price="$500 – $1,500"
           bestFor="Businesses that want to save time and improve customer flow."
           goal="Modernize your presence and automate your intake."
           value="Saves 5–10 hrs/week on scheduling & emails."
+          slug="standard"
           items={['5–10 pages','Contact forms + booking system','Basic SEO (Google visibility)','Custom branding & animations','Calendar integration']} hot/>
-        <PCard badge="Advanced" color="#c084fc" title="Growth Site" price="$1,500 – $3,000+"
+        <PCard badge="Growth" color="#c084fc" title="Growth Site" price="$1,500 – $3,000+"
           bestFor="Businesses ready to scale and fully automate."
           goal="Turn your website into a fully automated business tool."
+          slug="growth"
           items={['10+ pages','Blog + CMS','Email, booking & payment integrations','Performance optimization','Auto email reply system','Bank-level secure intake','AI chatbot (answers clients 24/7)']}/>
       </div>
 
